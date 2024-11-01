@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/utils/colors.dart';
+import 'package:myblood/src/feature/find-doner/screens/find_doner.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen(
@@ -65,7 +66,7 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: GestureDetector(
                 onTap: () {
-                  // tap navigate into all doner screans
+                  Get.to(() => FindDoner());
                 },
                 child: Container(
                   height: 80,
@@ -106,9 +107,7 @@ class HomeScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: GestureDetector(
-                onTap: () {
-                  // tap navigate into all doner screans
-                },
+                onTap: () {},
                 child: Container(
                   height: 80,
                   width: double.maxFinite,

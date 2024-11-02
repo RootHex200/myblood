@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/utils/colors.dart';
-import 'package:myblood/src/feature/find-doner/controller/radio_button_controller.dart';
+import 'package:myblood/src/feature/find-donor/controller/radio_button_controller.dart';
 
 class SearchResult extends StatelessWidget {
   SearchResult({

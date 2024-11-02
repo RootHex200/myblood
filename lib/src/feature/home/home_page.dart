@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myblood/src/feature/booked-doner/screens/book_doner_screen.dart';
-
+import 'package:myblood/src/feature/booked-donor/screens/book_doner_screen.dart';
 import 'package:myblood/src/feature/home/components/custome_nav_bar.dart';
 import 'package:myblood/src/feature/home/controller/page_controller.dart';
 import 'package:myblood/src/feature/home/view/home_screen.dart';

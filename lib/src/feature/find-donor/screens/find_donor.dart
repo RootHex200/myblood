@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/constants/blood_groups_list.dart';
 import 'package:myblood/src/core/utils/colors.dart';
-import 'package:myblood/src/feature/find-doner/components/search_result.dart';
-import 'package:myblood/src/feature/find-doner/controller/blood_group_select_controller.dart';
-import 'package:myblood/src/feature/find-doner/controller/radio_button_controller.dart';
+import 'package:myblood/src/feature/find-donor/components/search_result.dart';
+import 'package:myblood/src/feature/find-donor/controller/blood_group_select_controller.dart';
+import 'package:myblood/src/feature/find-donor/controller/radio_button_controller.dart';
+import 'package:myblood/src/feature/find-donor/donor_profile/donor_profile.dart';
 
 class FindDoner extends StatelessWidget {
   FindDoner({super.key});
@@ -67,7 +68,17 @@ class FindDoner extends StatelessWidget {
                                       : whiteColor,
                                 ),
                                 child: Center(
-                                  child: Text(bloodGroups[index]),
+                                  child: Text(
+                                    bloodGroups[index],
+                                    style: TextStyle(
+                                      color: _bloodGroupSelectController
+                                                  .isSelected.value ==
+                                              index
+                                          ? Colors.white
+                                          : Colors.red,
+                                      fontSize: 20,
+                                    ),
+                                  ),
                                 ),
                               ),
                             )),
@@ -129,11 +140,16 @@ class FindDoner extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: SearchResult(
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(DonorProfile());
+                            },
+                            child: SearchResult(
                               donerName: "Doner name",
                               distance: "2.4km",
                               address: "adarsha sadar,cumilla",
                             ),
+                          ),
                         );
                       }))
             ],

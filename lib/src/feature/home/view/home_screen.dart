@@ -135,7 +135,7 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: GestureDetector(
                   onTap: () {
-                    Get.to(() => FindDoner());
+                    Get.to(() => FindDonor());
                   },
                   child: Container(
                     height: 80,

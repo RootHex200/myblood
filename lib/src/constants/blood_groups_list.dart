@@ -8,3 +8,4 @@ const List<String> bloodGroups = [
   'AB-',
   'O-',
 ];
+const bool isDoner = false;

@@ -174,6 +174,7 @@ class DonorProfileDetails extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.red,
                       backgroundColor: whiteColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -193,6 +194,7 @@ class DonorProfileDetails extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.red,
                       backgroundColor: whiteColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/utils/colors.dart';
@@ -20,7 +21,7 @@ class DonorProfile extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    height: height * 0.3,
+                    height: height * 0.2,
                     width: width,
                     color: Colors.red,
                     child: Padding(
@@ -29,16 +30,6 @@ class DonorProfile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              Icons.menu,
-                              color: whiteColor,
-                            ),
-                          ),
-                          SizedBox(
-                            height: height * 0.1,
-                          ),
                           Text(
                             "Donor Profile",
                             style: TextStyle(
@@ -49,30 +40,6 @@ class DonorProfile extends StatelessWidget {
                           const SizedBox(
                             height: 15,
                           ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll(
-                                    Colors.grey.shade100)),
-                            onPressed: () {},
-                            child: const SizedBox(
-                              width: 110,
-                              child: Row(
-                                children: [
-                                  Icon(Icons.mode_edit_outline_outlined),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "Edit Profile",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
                         ],
                       ),
                     ),
@@ -90,22 +57,37 @@ class DonorProfile extends StatelessWidget {
               ),
               //Profile Picture
               Positioned(
-                  top: height * 0.22,
-                  right: width * 0.07,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 10, // Spread of the shadow
-                          offset: const Offset(5, 5), // Position of the shadow
-                        ),
-                      ],
-                    ),
-                    child: const CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 70,
+                top: height * 0.12,
+                right: width * 0.07,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10, // Spread of the shadow
+                        offset: const Offset(5, 5), // Position of the shadow
+                      ),
+                    ],
+                  ),
+                  child: const CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage: AssetImage("assets/images/blood.png"),
+                    radius: 80,
+                  ),
+                ),
+              ),
+              Positioned(
+                  top: 30,
+                  left: 12,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Icon(
+                      CupertinoIcons.back,
+                      size: 30,
+                      color: whiteColor,
                     ),
                   ))
             ],

@@ -7,8 +7,8 @@ import 'package:myblood/src/feature/find-donor/controller/blood_group_select_con
 import 'package:myblood/src/feature/find-donor/controller/radio_button_controller.dart';
 import 'package:myblood/src/feature/find-donor/donor_profile/donor_profile.dart';
 
-class FindDoner extends StatelessWidget {
-  FindDoner({super.key});
+class FindDonor extends StatelessWidget {
+  FindDonor({super.key});
   final RadioButtonController _controller = Get.put(RadioButtonController());
   final BloodGroupSelectController _bloodGroupSelectController =
       Get.put(BloodGroupSelectController());

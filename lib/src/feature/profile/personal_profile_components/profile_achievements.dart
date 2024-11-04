@@ -9,7 +9,7 @@ class ProfileAchievements extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: Container(
+      child: SizedBox(
         height: 100,
         width: 100,
         child: Column(

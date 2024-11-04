@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
                   Container(
                     height: height * 0.3,
                     width: width,
-                    color: Colors.blueGrey.shade400,
+                    color: const Color.fromRGBO(120, 144, 156, 1),
                     child: const Padding(
                         padding: EdgeInsets.all(12),
                         child: ProfileHeder(

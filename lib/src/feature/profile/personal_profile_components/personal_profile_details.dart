@@ -49,18 +49,18 @@ class PersonalProfileDetails extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            SizedBox(
-              width: Get.width * 0.55,
-              child: Row(
-                children: [
-                  const Icon(Icons.mail_outline),
-                  SelectableText(
+            Row(
+              children: [
+                const Icon(Icons.mail_outline),
+                SizedBox(
+                  width: Get.width * 0.50,
+                  child: Text(
                     email,
                     style: const TextStyle(
                         fontSize: 18, overflow: TextOverflow.ellipsis),
                   ),
-                ],
-              ),
+                )
+              ],
             ),
             const SizedBox(
               height: 10,
@@ -116,7 +116,9 @@ class PersonalProfileDetails extends StatelessWidget {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
                   itemBuilder: (context, index) {
-                    return ProfileAchievements(index: index,);
+                    return ProfileAchievements(
+                      index: index,
+                    );
                   }),
             ))
           ],

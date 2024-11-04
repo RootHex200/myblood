@@ -20,8 +20,8 @@ class HomePage extends StatelessWidget {
           controllerState.pageValue.value = value;
         },
         children: [
-          HomeScreen(userName: "nazmul", userLocation: "Cumilla"),
-          BookDonerScreen(),
+          const HomeScreen(userName: "nazmul", userLocation: "Cumilla"),
+          const BookDonerScreen(),
           ProfileScreen(),
         ],
       ),

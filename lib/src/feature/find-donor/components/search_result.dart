@@ -9,10 +9,12 @@ class SearchResult extends StatelessWidget {
     required this.donerName,
     required this.distance,
     required this.address,
+    required this.imageAddress,
   });
   final String donerName;
   final String distance;
   final String address;
+  final String imageAddress;
   final RadioButtonController _controller = Get.put(RadioButtonController());
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,8 @@ class SearchResult extends StatelessWidget {
             width: 50,
             decoration: BoxDecoration(
                 //doner profile image
-                image: const DecorationImage(
-                    image: AssetImage("assets/images/blood.png"),
-                    fit: BoxFit.cover),
+                image: DecorationImage(
+                    image: NetworkImage(imageAddress), fit: BoxFit.cover),
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.shade200),
           ),

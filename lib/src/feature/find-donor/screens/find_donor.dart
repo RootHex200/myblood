@@ -2,16 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/constants/blood_groups_list.dart';
 import 'package:myblood/src/core/utils/colors.dart';
+import 'package:myblood/src/feature/find-donor/api/all_donor_model.dart';
+import 'package:myblood/src/feature/find-donor/api/fetch_all_donor_list.dart';
 import 'package:myblood/src/feature/find-donor/components/search_result.dart';
 import 'package:myblood/src/feature/find-donor/controller/blood_group_select_controller.dart';
 import 'package:myblood/src/feature/find-donor/controller/radio_button_controller.dart';
 import 'package:myblood/src/feature/find-donor/donor_profile/donor_profile.dart';
 
-class FindDonor extends StatelessWidget {
-  FindDonor({super.key});
+class FindDonor extends StatefulWidget {
+  const FindDonor({super.key});
+
+  @override
+  State<FindDonor> createState() => _FindDonorState();
+}
+
+class _FindDonorState extends State<FindDonor> {
   final RadioButtonController _controller = Get.put(RadioButtonController());
+
   final BloodGroupSelectController _bloodGroupSelectController =
       Get.put(BloodGroupSelectController());
+  late Future<List<AllDonorModel>> futureDonors;
+  @override
+  void initState() {
+    super.initState();
+    getAllDonor();
+    futureDonors = getAllDonor();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,22 +151,51 @@ class FindDonor extends StatelessWidget {
               ),
               // search result of blood doner
               Expanded(
-                  child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.to(DonorProfile());
-                            },
-                            child: SearchResult(
-                              donerName: "Doner name",
-                              distance: "2.4km",
-                              address: "adarsha sadar,cumilla",
+                  child: FutureBuilder(
+                      future: futureDonors,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.red,
                             ),
-                          ),
-                        );
+                          );
+                        } else if (snapshot.hasError) {
+                          return const Center(
+                            child: Text("No Donors Found"),
+                          );
+                        } else {
+                          return ListView.builder(
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                final donor = snapshot.data![index];
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Get.to(() => DonorProfile(
+                                          donorName: donor.donerName,
+                                          bloodGroup:donor.bloodGroup,
+                                          donatedTime: donor.donatedTime,
+                                          gender: donor.gender,
+                                          email: donor.email,
+                                          phone: donor.phone,
+                                          address: donor.address,
+                                          area: donor.area,
+                                          imageAddress: donor.donerImage,));
+                                    },
+                                    child: SearchResult(
+                                      donerName: donor.donerName,
+                                      distance: donor.distanceFromAddress,
+                                      address: donor.address,
+                                      imageAddress: donor.donerImage,
+                                    ),
+                                  ),
+                                );
+                              });
+                        }
                       }))
             ],
           ),

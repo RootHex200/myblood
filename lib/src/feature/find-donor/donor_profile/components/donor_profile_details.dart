@@ -8,6 +8,7 @@ class DonorProfileDetails extends StatelessWidget {
     required this.name,
     required this.bloodGroup,
     required this.dontations,
+    required this.gender,
     required this.email,
     required this.phone,
     required this.address,
@@ -16,6 +17,7 @@ class DonorProfileDetails extends StatelessWidget {
   final String name;
   final String bloodGroup;
   final String dontations;
+  final String gender;
   final String email;
   final String phone;
   final String address;
@@ -72,6 +74,10 @@ class DonorProfileDetails extends StatelessWidget {
                   )
                 ],
               ),
+            ),
+            Text(
+              gender,
+              style: const TextStyle(fontSize: 20),
             ),
             const Divider(),
             Row(

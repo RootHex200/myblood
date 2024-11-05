@@ -5,7 +5,26 @@ import 'package:myblood/src/core/utils/colors.dart';
 import 'package:myblood/src/feature/find-donor/donor_profile/components/donor_profile_details.dart';
 
 class DonorProfile extends StatelessWidget {
-  DonorProfile({super.key});
+  DonorProfile(
+      {super.key,
+      required this.donorName,
+      required this.bloodGroup,
+      required this.donatedTime,
+      required this.gender,
+      required this.email,
+      required this.phone,
+      required this.address,
+      required this.area,
+      required this.imageAddress});
+  final String donorName;
+  final String bloodGroup;
+  final String donatedTime;
+  final String gender;
+  final String email;
+  final String phone;
+  final String address;
+  final String area;
+  final String imageAddress;
   final height = Get.height;
   final width = Get.width;
 
@@ -44,15 +63,16 @@ class DonorProfile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                       child: DonorProfileDetails(
-                          name: "Md. Nazmul Hasan",
-                          bloodGroup: "A+",
-                          dontations: "6",
-                          email: "mh3214002@gmail.com",
-                          phone: "01889161149",
-                          address: "Thakurpara, Kandrpar",
-                          area: "Madina Mosque road"))
+                          name: donorName,
+                          bloodGroup: bloodGroup,
+                          dontations: donatedTime,
+                          gender: gender,
+                          email: email,
+                          phone: phone,
+                          address: address,
+                          area: area))
                 ],
               ),
               //Profile Picture
@@ -70,9 +90,11 @@ class DonorProfile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: const CircleAvatar(
+                  child: CircleAvatar(
                     backgroundColor: Colors.white,
-                    backgroundImage: AssetImage("assets/images/blood.png"),
+                    backgroundImage: imageAddress.isEmpty
+                        ? const AssetImage("assets/images/blood.png")
+                        : NetworkImage(imageAddress),
                     radius: 80,
                   ),
                 ),

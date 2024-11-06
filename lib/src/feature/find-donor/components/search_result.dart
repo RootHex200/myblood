@@ -62,7 +62,13 @@ class SearchResult extends StatelessWidget {
                 border: Border.all(color: Colors.grey)),
             child: Center(
                 child: Obx(
-              () => Text(_controller.currentValue.value),
+              () => Text(
+                _controller.currentValue.value,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             )),
           ),
         ),

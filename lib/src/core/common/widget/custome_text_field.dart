@@ -9,6 +9,8 @@ class CustomeTextField extends StatelessWidget {
     required this.onChanged,
     required this.onSubmitted,
     this.prefixIcon,
+    this.maxLine,
+    this.suffixIcon,
   });
 
   final TextInputType inputType;
@@ -16,14 +18,18 @@ class CustomeTextField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final ValueChanged<String> onSubmitted;
   final Icon? prefixIcon;
+  final int? maxLine;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       keyboardType: inputType,
+      maxLines: maxLine,
       style: const TextStyle(color: Colors.red),
       decoration: InputDecoration(
           prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
           fillColor: whiteColor,
           filled: true,
           hintText: hintText,

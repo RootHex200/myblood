@@ -17,3 +17,16 @@ Future<List<AllDonorModel>> getAllDonor() async {
     );
   }
 }
+
+Future<List<AllDonorModel>> searchData(String encoder) async {
+  final response = await dio.get("$api$getDonor?q=$encoder");
+  if (response.statusCode == 200) {
+    return (response.data as List)
+        .map((item) => AllDonorModel.fromJson(item))
+        .toList();
+  } else {
+    throw Exception(
+      "An error occurred: [Status Code : ${response.statusCode}]",
+    );
+  }
+}

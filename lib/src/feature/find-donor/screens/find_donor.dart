@@ -102,7 +102,7 @@ class _FindDonorState extends State<FindDonor> {
                     }),
               ),
               SizedBox(
-                height: Get.height * .1,
+                height: Get.height * .13,
                 width: double.maxFinite,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -110,24 +110,45 @@ class _FindDonorState extends State<FindDonor> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text("Select when you need"),
+                      const Text(
+                        "(Choose wisely in this segment)",
+                        style: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.bold),
+                      ),
                       Obx(
                         () => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             RadioMenuButton(
-                                value: "Now",
+                                value: "Book Now",
                                 groupValue: _controller.currentValue.value,
                                 onChanged: (value) {
                                   _controller.currentValue.value = value!;
                                 },
-                                child: const Text("Now")),
+                                child: Text(
+                                  "Now",
+                                  style: TextStyle(
+                                    color: _controller.currentValue.value ==
+                                            "Book Now"
+                                        ? Colors.red
+                                        : Colors.black,
+                                  ),
+                                )),
                             RadioMenuButton(
-                              value: "Book latter",
+                              value: "Book Latter",
                               groupValue: _controller.currentValue.value,
                               onChanged: (value) {
                                 _controller.currentValue.value = value!;
                               },
-                              child: const Text("Book latter"),
+                              child: Text(
+                                "Book latter",
+                                style: TextStyle(
+                                  color: _controller.currentValue.value ==
+                                          "Book Latter"
+                                      ? Colors.red
+                                      : Colors.black,
+                                ),
+                              ),
                             )
                           ],
                         ),
@@ -176,15 +197,18 @@ class _FindDonorState extends State<FindDonor> {
                                   child: GestureDetector(
                                     onTap: () {
                                       Get.to(() => DonorProfile(
-                                          donorName: donor.donerName,
-                                          bloodGroup:donor.bloodGroup,
-                                          donatedTime: donor.donatedTime,
-                                          gender: donor.gender,
-                                          email: donor.email,
-                                          phone: donor.phone,
-                                          address: donor.address,
-                                          area: donor.area,
-                                          imageAddress: donor.donerImage,));
+                                            donorName: donor.donerName,
+                                            bloodGroup: donor.bloodGroup,
+                                            donatedTime: donor.donatedTime,
+                                            gender: donor.gender,
+                                            email: donor.email,
+                                            phone: donor.phone,
+                                            address: donor.address,
+                                            area: donor.area,
+                                            imageAddress: donor.donerImage,
+                                            whentoBook:
+                                                _controller.currentValue.value,
+                                          ));
                                     },
                                     child: SearchResult(
                                       donerName: donor.donerName,

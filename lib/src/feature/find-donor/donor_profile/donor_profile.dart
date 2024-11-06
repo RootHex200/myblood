@@ -15,7 +15,8 @@ class DonorProfile extends StatelessWidget {
       required this.phone,
       required this.address,
       required this.area,
-      required this.imageAddress});
+      required this.imageAddress,
+      required this.whentoBook});
   final String donorName;
   final String bloodGroup;
   final String donatedTime;
@@ -25,6 +26,7 @@ class DonorProfile extends StatelessWidget {
   final String address;
   final String area;
   final String imageAddress;
+  final String whentoBook;
   final height = Get.height;
   final width = Get.width;
 
@@ -65,14 +67,16 @@ class DonorProfile extends StatelessWidget {
                   ),
                   Expanded(
                       child: DonorProfileDetails(
-                          name: donorName,
-                          bloodGroup: bloodGroup,
-                          dontations: donatedTime,
-                          gender: gender,
-                          email: email,
-                          phone: phone,
-                          address: address,
-                          area: area))
+                    name: donorName,
+                    bloodGroup: bloodGroup,
+                    dontations: donatedTime,
+                    gender: gender,
+                    email: email,
+                    phone: phone,
+                    address: address,
+                    area: area,
+                    whentoBook: whentoBook,
+                  ))
                 ],
               ),
               //Profile Picture
@@ -107,8 +111,8 @@ class DonorProfile extends StatelessWidget {
                       Get.back();
                     },
                     child: Icon(
-                      CupertinoIcons.back,
-                      size: 30,
+                      Icons.arrow_back,
+                      size: 25,
                       color: whiteColor,
                     ),
                   ))

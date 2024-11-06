@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/utils/colors.dart';
+import 'package:myblood/src/feature/booked-donor/bookings-for-latter/screens/booking_latter.dart';
+import 'package:myblood/src/feature/booked-donor/instant-booking/screen/instant_booking.dart';
 
 class DonorProfileDetails extends StatelessWidget {
   const DonorProfileDetails({
@@ -13,6 +15,7 @@ class DonorProfileDetails extends StatelessWidget {
     required this.phone,
     required this.address,
     required this.area,
+    required this.whentoBook,
   });
   final String name;
   final String bloodGroup;
@@ -22,6 +25,7 @@ class DonorProfileDetails extends StatelessWidget {
   final String phone;
   final String address;
   final String area;
+  final String whentoBook;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -168,53 +172,81 @@ class DonorProfileDetails extends StatelessWidget {
             ),
             const Divider(),
             SizedBox(
-              height: Get.height * 0.2,
+              height: Get.height * 0.18,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Material(
-                  color: Colors.transparent,
-                  elevation: 5,
-                  shadowColor: Colors.black.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(5),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.red,
-                      backgroundColor: whiteColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Book Now",
-                      style: TextStyle(fontSize: 20),
+            GestureDetector(
+              onTap: () {
+                if (whentoBook == "Book Now") {
+                  Get.to(() => InstantBooking());
+                } else if (whentoBook == "Book Latter") {
+                  Get.to(() => BookingLatter());
+                }
+              },
+              child: Container(
+                height: 60,
+                width: Get.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.red,
+                ),
+                child: Center(
+                  child: Text(
+                    whentoBook,
+                    style: TextStyle(
+                      color: whiteColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Material(
-                  color: Colors.transparent,
-                  elevation: 5,
-                  shadowColor: Colors.black.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(5),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.red,
-                      backgroundColor: whiteColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Book Latter",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            )
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   children: [
+            //     Material(
+            //       color: Colors.transparent,
+            //       elevation: 5,
+            //       shadowColor: Colors.black.withOpacity(0.3),
+            //       borderRadius: BorderRadius.circular(5),
+            //       child: ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //           foregroundColor: Colors.red,
+            //           backgroundColor: whiteColor,
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(5),
+            //           ),
+            //         ),
+            //         onPressed: () {},
+            //         child: const Text(
+            //           "Book Now",
+            //           style: TextStyle(fontSize: 20),
+            //         ),
+            //       ),
+            //     ),
+            //     Material(
+            //       color: Colors.transparent,
+            //       elevation: 5,
+            //       shadowColor: Colors.black.withOpacity(0.3),
+            //       borderRadius: BorderRadius.circular(5),
+            //       child: ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //           foregroundColor: Colors.red,
+            //           backgroundColor: whiteColor,
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(5),
+            //           ),
+            //         ),
+            //         onPressed: () {},
+            //         child: const Text(
+            //           "Book Latter",
+            //           style: TextStyle(fontSize: 20),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            ,
             const SizedBox(
               height: 20,
             )

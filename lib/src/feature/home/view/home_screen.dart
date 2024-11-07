@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/utils/colors.dart';
+import 'package:myblood/src/feature/add-blood-donor/register_a_donor.dart';
 import 'package:myblood/src/feature/find-donor/screens/find_donor.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +14,46 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: scaffoldBackground,
+      appBar: AppBar(
+          toolbarHeight: Get.height * 0.1,
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color.fromARGB(255, 211, 15, 15),
+          title: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Hello, $userName",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: whiteColor),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        CupertinoIcons.bell,
+                        color: whiteColor,
+                      ))
+                ],
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.circle_rounded,
+                    color: Colors
+                        .green, // todo: change color through active status,
+                    size: 15,
+                  ),
+                  Text(
+                    userLocation,
+                    style: TextStyle(fontSize: 15, color: whiteColor),
+                  ),
+                ],
+              ),
+            ],
+          )),
       body: Stack(children: [
         Positioned.fill(
           child: Container(
@@ -49,47 +89,7 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.white.withOpacity(0.15)),
             )),
         Positioned(
-            top: 30,
-            left: 20,
-            right: 20,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Hello, $userName",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: whiteColor),
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          CupertinoIcons.bell,
-                          color: whiteColor,
-                        ))
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.circle_rounded,
-                      color: Colors
-                          .green, // todo: change color through active status,
-                      size: 15,
-                    ),
-                    Text(
-                      userLocation,
-                      style: TextStyle(fontSize: 15, color: whiteColor),
-                    ),
-                  ],
-                ),
-              ],
-            )),
-        Positioned(
-          top: Get.height * 0.15,
+          top: Get.height * 0.05,
           left: 20,
           right: 20,
           child: Container(
@@ -125,178 +125,112 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+        Positioned(
+          top: Get.height * 0.45,
+          left: 20,
+          right: 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              //Find Doner
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.to(() => const FindDonor());
-                  },
-                  child: Container(
-                    height: 80,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: whiteColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: ListTile(
-                        leading: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              image: const DecorationImage(
-                                  image: AssetImage("assets/images/blood.png"),
-                                  fit: BoxFit.cover),
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.grey.shade200),
-                        ),
-                        title: const Text(
-                          "Find Blood",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        // all available doner  number
-                        trailing: const Text(
-                          "801",
-                          style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: 80,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: whiteColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: ListTile(
-                        leading: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: const DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/nurse-avater.png"),
-                                  fit: BoxFit.cover),
-                              color: Colors.grey.shade200),
-                        ),
-                        title: const Text(
-                          "Find Nurse",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        // all available doner  number
-                        trailing: const Text(
-                          "801",
-                          style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              //
-              // blood registration
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: GestureDetector(
-                  onTap: () {
-                    // tap navigate into all doner screans
-                  },
-                  child: Container(
-                    height: 80,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: whiteColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: ListTile(
-                        trailing: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: const DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/add-doner.png"),
-                                  fit: BoxFit.cover),
-                              color: Colors.grey.shade200),
-                        ),
-                        title: const Text(
-                          "Register a donor",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        // all available doner  number
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              //
-              // registrer nurse
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: GestureDetector(
-                  onTap: () {
-                    // tap navigate into all doner screans
-                  },
-                  child: Container(
-                    height: 80,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: whiteColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: ListTile(
-                        trailing: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: const DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/add-nurse.png"),
-                                  fit: BoxFit.cover),
-                              color: Colors.grey.shade200),
-                        ),
-                        title: const Text(
-                          "Register a Nurse",
-                          style: TextStyle(
-                            fontSize: 20,
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => const FindDonor(),
+                          curve: Curves.bounceOut,
+                          duration: const Duration(seconds: 1));
+                    },
+                    child: Container(
+                      height: Get.width * 0.3,
+                      width: Get.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
                           ),
-                        ),
-                        // all available doner  number
+                        ],
+                        image: const DecorationImage(
+                            image: AssetImage("assets/images/blood.png"),
+                            fit: BoxFit.cover),
+                        color: whiteColor,
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Find Donor",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: whiteColor,
+                        fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            offset: const Offset(0, 2),
+                            blurRadius: 5,
+                          )
+                        ]),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+
+              /// register donor
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => const RegisterADonor(),
+                          curve: Curves.bounceOut,
+                          duration: const Duration(seconds: 1));
+                    },
+                    child: Container(
+                      height: Get.width * 0.3,
+                      width: Get.width * 0.3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
+                        image: const DecorationImage(
+                            image: AssetImage("assets/images/add-doner.png"),
+                            fit: BoxFit.cover),
+                        color: whiteColor,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Register a donor",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: whiteColor,
+                        fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            offset: const Offset(0, 2),
+                            blurRadius: 5,
+                          )
+                        ]),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ],
           ),
-        ),
+        )
       ]),
     );
   }

@@ -7,7 +7,7 @@ import 'package:myblood/src/feature/find-donor/api/fetch_all_donor_list.dart';
 import 'package:myblood/src/feature/find-donor/components/search_result.dart';
 import 'package:myblood/src/feature/find-donor/controller/blood_group_select_controller.dart';
 import 'package:myblood/src/feature/find-donor/controller/radio_button_controller.dart';
-import 'package:myblood/src/feature/find-donor/donor_profile/donor_profile.dart';
+import 'package:myblood/src/feature/profile/donor-profile/donor_profile.dart';
 
 class FindDonor extends StatefulWidget {
   const FindDonor({super.key});
@@ -196,19 +196,22 @@ class _FindDonorState extends State<FindDonor> {
                                       const EdgeInsets.symmetric(vertical: 10),
                                   child: GestureDetector(
                                     onTap: () {
-                                      Get.to(() => DonorProfile(
-                                            donorName: donor.donerName,
-                                            bloodGroup: donor.bloodGroup,
-                                            donatedTime: donor.donatedTime,
-                                            gender: donor.gender,
-                                            email: donor.email,
-                                            phone: donor.phone,
-                                            address: donor.address,
-                                            area: donor.area,
-                                            imageAddress: donor.donerImage,
-                                            whentoBook:
-                                                _controller.currentValue.value,
-                                          ));
+                                      Get.to(
+                                          () => DonorProfile(
+                                                donorName: donor.donerName,
+                                                bloodGroup: donor.bloodGroup,
+                                                donatedTime: donor.donatedTime,
+                                                gender: donor.gender,
+                                                email: donor.email,
+                                                phone: donor.phone,
+                                                address: donor.address,
+                                                area: donor.area,
+                                                imageAddress: donor.donerImage,
+                                                whentoBook: _controller
+                                                    .currentValue.value,
+                                              ),
+                                          curve: Curves.bounceOut,
+                                          duration: const Duration(seconds: 1));
                                     },
                                     child: SearchResult(
                                       donerName: donor.donerName,

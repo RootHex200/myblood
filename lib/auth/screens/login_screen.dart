@@ -104,7 +104,9 @@ class LoginScreen extends StatelessWidget {
                   _controller.loginstate();
                   if (_controller.loginSuccess.value) {
                     Future.delayed(const Duration(seconds: 1), () {
-                      Get.to(() => HomePage());
+                      Get.to(() => HomePage(),
+                          curve: Curves.bounceOut,
+                          duration: const Duration(seconds: 1));
                     });
                   }
                 },
@@ -139,7 +141,9 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   TextButton(
                       onPressed: () {
-                        Get.to(() => const ForgotPassScreen());
+                        Get.to(() => const ForgotPassScreen(),
+                            curve: Curves.bounceOut,
+                            duration: const Duration(seconds: 1));
                       },
                       child: Text(
                         "Forgot Password?",
@@ -147,7 +151,9 @@ class LoginScreen extends StatelessWidget {
                       )),
                   TextButton(
                     onPressed: () {
-                      Get.to(() => SignUpScreen());
+                      Get.to(() => SignUpScreen(),
+                          curve: Curves.bounceOut,
+                          duration: const Duration(seconds: 1));
                     },
                     child: Text(
                       "Create account",

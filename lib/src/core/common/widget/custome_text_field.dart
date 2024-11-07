@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myblood/src/core/utils/colors.dart';
 
 class CustomeTextField extends StatelessWidget {
@@ -11,6 +12,7 @@ class CustomeTextField extends StatelessWidget {
     this.prefixIcon,
     this.maxLine,
     this.suffixIcon,
+    this.textAlign = TextAlign.start, this.inputFormatters,
   });
 
   final TextInputType inputType;
@@ -20,12 +22,16 @@ class CustomeTextField extends StatelessWidget {
   final Icon? prefixIcon;
   final int? maxLine;
   final Widget? suffixIcon;
+  final TextAlign textAlign;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textAlign: textAlign,
       keyboardType: inputType,
       maxLines: maxLine,
+      inputFormatters: inputFormatters,
       style: const TextStyle(color: Colors.red),
       decoration: InputDecoration(
           prefixIcon: prefixIcon,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/common/widget/custome_text_field.dart';
 import 'package:myblood/src/core/utils/colors.dart';
@@ -20,7 +21,7 @@ class InstantBooking extends StatelessWidget {
             color: whiteColor,
           ),
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.deepOrange,
         title: Text(
           "Book Donor Instant",
           style: TextStyle(color: whiteColor, fontSize: 20),
@@ -74,6 +75,7 @@ class InstantBooking extends StatelessWidget {
                   SizedBox(
                     width: 60,
                     child: CustomeTextField(
+                        textAlign: TextAlign.center,
                         inputType: TextInputType.number,
                         hintText: "",
                         onChanged: (value) {},
@@ -175,10 +177,15 @@ class InstantBooking extends StatelessWidget {
                   SizedBox(
                     width: Get.width * .7,
                     child: CustomeTextField(
-                        inputType: TextInputType.datetime,
-                        hintText: "XXX-XXXXXX",
-                        onChanged: (value) {},
-                        onSubmitted: (value) {}),
+                      inputType: TextInputType.datetime,
+                      hintText: "XXX-XXXXXX",
+                      onChanged: (value) {},
+                      onSubmitted: (value) {},
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(10),
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                    ),
                   )
                 ],
               )

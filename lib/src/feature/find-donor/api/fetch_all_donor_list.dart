@@ -4,7 +4,7 @@ import 'package:myblood/src/feature/find-donor/api/all_donor_model.dart';
 
 final dio = Dio();
 
-Future<List<AllDonorModel>> getAllDonor() async {
+getAllDonor() async {
   final response = await dio.get(api + getDonor);
 
   if (response.statusCode == 200) {
@@ -18,7 +18,7 @@ Future<List<AllDonorModel>> getAllDonor() async {
   }
 }
 
-Future<List<AllDonorModel>> searchData(String encoder) async {
+ sortDonorList(String encoder) async {
   final response = await dio.get("$api$getDonor?q=$encoder");
   if (response.statusCode == 200) {
     return (response.data as List)

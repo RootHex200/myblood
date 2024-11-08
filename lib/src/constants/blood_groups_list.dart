@@ -8,4 +8,14 @@ const List<String> bloodGroups = [
   'AB-',
   'O-',
 ];
+const List<String> bloodGroupEncoders = [
+  "A%2B",
+  "B%2B",
+  "AB%2B",
+  "O%2B",
+  "A-",
+  "B-",
+  "AB-",
+  "O-",
+];
 const bool isDoner = false;

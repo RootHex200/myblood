@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/utils/colors.dart';
-import 'package:myblood/src/feature/booked-donor/bookings-for-latter/screens/booking_latter.dart';
-import 'package:myblood/src/feature/booked-donor/instant-booking/screen/instant_booking.dart';
+import 'package:myblood/src/feature/booked-donor/others/bookings-for-latter/screens/booking_latter.dart';
+import 'package:myblood/src/feature/booked-donor/others/instant-booking/screen/instant_booking.dart';
 
 class DonorProfileDetails extends StatelessWidget {
   const DonorProfileDetails({

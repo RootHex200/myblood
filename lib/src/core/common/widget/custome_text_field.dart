@@ -12,7 +12,8 @@ class CustomeTextField extends StatelessWidget {
     this.prefixIcon,
     this.maxLine,
     this.suffixIcon,
-    this.textAlign = TextAlign.start, this.inputFormatters,
+    this.textAlign = TextAlign.start,
+    this.inputFormatters, this.controller,
   });
 
   final TextInputType inputType;
@@ -23,6 +24,7 @@ class CustomeTextField extends StatelessWidget {
   final int? maxLine;
   final Widget? suffixIcon;
   final TextAlign textAlign;
+  final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
 
   @override

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/constants/blood_groups_list.dart';
 import 'package:myblood/src/core/utils/colors.dart';
-import 'package:myblood/src/feature/find-donor/api/all_donor_model.dart';
-import 'package:myblood/src/feature/find-donor/api/fetch_all_donor_list.dart';
 import 'package:myblood/src/feature/find-donor/components/search_result.dart';
 import 'package:myblood/src/feature/find-donor/controller/blood_group_select_controller.dart';
 import 'package:myblood/src/feature/find-donor/controller/radio_button_controller.dart';
+import 'package:myblood/src/feature/find-donor/controller/sorted_doner_list_controller.dart';
 import 'package:myblood/src/feature/profile/donor-profile/donor_profile.dart';
 
 class FindDonor extends StatefulWidget {
@@ -21,13 +20,9 @@ class _FindDonorState extends State<FindDonor> {
 
   final BloodGroupSelectController _bloodGroupSelectController =
       Get.put(BloodGroupSelectController());
-  late Future<List<AllDonorModel>> futureDonors;
-  @override
-  void initState() {
-    super.initState();
-    getAllDonor();
-    futureDonors = getAllDonor();
-  }
+  final SortedDonerListController _sortedController =
+      Get.put(SortedDonerListController());
+  var selectedEncoder = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +63,9 @@ class _FindDonorState extends State<FindDonor> {
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                             onTap: () {
+                              selectedEncoder.value = true;
+                              _sortedController
+                                  .sortedDonorList(bloodGroupEncoders[index]);
                               _bloodGroupSelectController.isSelected.value =
                                   index;
                             },
@@ -172,58 +170,72 @@ class _FindDonorState extends State<FindDonor> {
               ),
               // search result of blood doner
               Expanded(
-                  child: FutureBuilder(
-                      future: futureDonors,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.red,
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          return const Center(
-                            child: Text("No Donors Found"),
-                          );
-                        } else {
-                          return ListView.builder(
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (context, index) {
-                                final donor = snapshot.data![index];
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Get.to(
-                                          () => DonorProfile(
-                                                donorName: donor.donerName,
-                                                bloodGroup: donor.bloodGroup,
-                                                donatedTime: donor.donatedTime,
-                                                gender: donor.gender,
-                                                email: donor.email,
-                                                phone: donor.phone,
-                                                address: donor.address,
-                                                area: donor.area,
-                                                imageAddress: donor.donerImage,
-                                                whentoBook: _controller
-                                                    .currentValue.value,
-                                              ),
-                                          curve: Curves.bounceOut,
-                                          duration: const Duration(seconds: 1));
-                                    },
-                                    child: SearchResult(
-                                      donerName: donor.donerName,
-                                      distance: donor.distanceFromAddress,
-                                      address: donor.address,
-                                      imageAddress: donor.donerImage,
-                                    ),
-                                  ),
-                                );
-                              });
-                        }
-                      }))
+                child: Obx(() {
+                  if (_sortedController.isLoading.value) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  if (_sortedController.errorMessage.isNotEmpty) {
+                    return Center(
+                      child: Text(
+                        _sortedController.errorMessage.value,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+
+                  // Correct the list selection logic
+                  final donors = selectedEncoder.value
+                      ? _sortedController
+                          .sortedDonors // Show sorted donors when selectedEncoder is true
+                      : _sortedController
+                          .initialDonors; // Show initial donors when no sorting is active
+
+                  if (donors.isEmpty) {
+                    return const Center(
+                      child: Text("No Donor Found"),
+                    );
+                  }
+
+                  return ListView.builder(
+                    itemCount: donors.length,
+                    itemBuilder: (context, index) {
+                      final donor = donors[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(
+                              () => DonorProfile(
+                                donorName: donor.donerName,
+                                bloodGroup: donor.bloodGroup,
+                                donatedTime: donor.donatedTime,
+                                gender: donor.gender,
+                                email: donor.email,
+                                phone: donor.phone,
+                                address: donor.address,
+                                area: donor.area,
+                                imageAddress: donor.donerImage,
+                                whentoBook: _controller.currentValue.value,
+                              ),
+                              curve: Curves.bounceOut,
+                              duration: const Duration(milliseconds: 200),
+                            );
+                          },
+                          child: SearchResult(
+                            donerName: donor.donerName,
+                            distance: donor.distanceFromAddress,
+                            address: donor.address,
+                            imageAddress: donor.donerImage,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ),
             ],
           ),
         ));

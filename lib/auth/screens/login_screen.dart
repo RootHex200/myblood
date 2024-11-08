@@ -51,185 +51,191 @@ class LoginScreen extends StatelessWidget {
         SafeArea(
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Every Drop Counts",
-                style: TextStyle(
-                    fontSize: 30,
-                    color: whiteColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Sign In to Make a Difference!",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: whiteColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              // User Name
-              CustomeTextField(
-                inputType: TextInputType.emailAddress,
-                hintText: "Enter your email",
-                onChanged: (value) {},
-                onSubmitted: (value) {},
-                prefixIcon: const Icon(
-                  Icons.email_outlined,
-                  color: Colors.red,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: Get.height * 0.15,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomeTextField(
-                inputType: TextInputType.visiblePassword,
-                hintText: "Enter your password",
-                onChanged: (value) {},
-                onSubmitted: (value) {},
-                prefixIcon: const Icon(
-                  Icons.password,
-                  color: Colors.red,
+                Text(
+                  "Every Drop Counts",
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold),
                 ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              GestureDetector(
-                onTap: () {
-                  _controller.loginstate();
-                  if (_controller.loginSuccess.value) {
-                    Future.delayed(const Duration(seconds: 1), () {
-                      Get.to(() => HomePage(),
-                          curve: Curves.bounceOut,
-                          duration: const Duration(seconds: 1));
-                    });
-                  }
-                },
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: whiteColor,
-                  ),
-                  child: Center(
-                    child: Obx(
-                      () => _controller.loginSuccess.value
-                          ? const CircularProgressIndicator(
-                              color: Colors.red,
-                            )
-                          : const Text(
-                              "Log in",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                    ),
+                Text(
+                  "Sign In to Make a Difference!",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                // User Name
+                CustomeTextField(
+                  inputType: TextInputType.emailAddress,
+                  hintText: "Enter your email",
+                  onChanged: (value) {},
+                  onSubmitted: (value) {},
+                  prefixIcon: const Icon(
+                    Icons.email_outlined,
+                    color: Colors.red,
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        Get.to(() => const ForgotPassScreen(),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomeTextField(
+                  inputType: TextInputType.visiblePassword,
+                  hintText: "Enter your password",
+                  onChanged: (value) {},
+                  onSubmitted: (value) {},
+                  prefixIcon: const Icon(
+                    Icons.password,
+                    color: Colors.red,
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _controller.loginstate();
+                    if (_controller.loginSuccess.value) {
+                      Future.delayed(const Duration(seconds: 1), () {
+                        Get.to(() => HomePage(),
                             curve: Curves.bounceOut,
-                            duration: const Duration(seconds: 1));
-                      },
-                      child: Text(
-                        "Forgot Password?",
-                        style: TextStyle(fontSize: 17, color: whiteColor),
-                      )),
-                  TextButton(
-                    onPressed: () {
-                      Get.to(() => SignUpScreen(),
-                          curve: Curves.bounceOut,
-                          duration: const Duration(seconds: 1));
-                    },
-                    child: Text(
-                      "Create account",
-                      style: TextStyle(fontSize: 17, color: whiteColor),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: Get.width * 0.4,
-                    child: Divider(
+                            duration: const Duration(milliseconds: 200));
+                      });
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
                       color: whiteColor,
                     ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: whiteColor)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: Text(
-                        "or",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: whiteColor,
-                        ),
+                    child: Center(
+                      child: Obx(
+                        () => _controller.loginSuccess.value
+                            ? const CircularProgressIndicator(
+                                color: Colors.red,
+                              )
+                            : const Text(
+                                "Log in",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold),
+                              ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: Get.width * 0.4,
-                    child: Divider(
-                      color: whiteColor,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Get.to(() => const ForgotPassScreen(),
+                              curve: Curves.bounceOut,
+                              duration: const Duration(seconds: 1));
+                        },
+                        child: Text(
+                          "Forgot Password?",
+                          style: TextStyle(fontSize: 17, color: whiteColor),
+                        )),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(() => SignUpScreen(),
+                            curve: Curves.bounceOut,
+                            duration: const Duration(
+                              seconds: 1,
+                            ));
+                      },
+                      child: Text(
+                        "Create account",
+                        style: TextStyle(fontSize: 17, color: whiteColor),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: Get.width * 0.4,
+                      child: Divider(
+                        color: whiteColor,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              "https://i.pinimg.com/564x/07/58/69/0758690971d85013d2b28e96e2af57a6.jpg"),
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              "https://i.pinimg.com/564x/89/73/d4/8973d4473f428cb78cca39f82c15af3e.jpg"),
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                ],
-              )
-            ],
+                    Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: whiteColor)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text(
+                          "or",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: whiteColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: Get.width * 0.4,
+                      child: Divider(
+                        color: whiteColor,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                "https://i.pinimg.com/564x/07/58/69/0758690971d85013d2b28e96e2af57a6.jpg"),
+                            fit: BoxFit.cover,
+                          )),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                "https://i.pinimg.com/564x/89/73/d4/8973d4473f428cb78cca39f82c15af3e.jpg"),
+                            fit: BoxFit.cover,
+                          )),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         )),
       ]),

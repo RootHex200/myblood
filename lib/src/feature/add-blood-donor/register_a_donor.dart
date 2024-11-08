@@ -93,6 +93,7 @@ class RegisterADonor extends StatelessWidget {
                             ),
                         curve: Curves.bounceOut,
                         duration: const Duration(seconds: 1));
+                        
                   }
                 },
                 child: Container(

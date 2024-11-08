@@ -79,9 +79,6 @@ class PersonalProfileDetails extends StatelessWidget {
               height: 5,
             ),
             const Divider(),
-            const SizedBox(
-              height: 50,
-            ),
             if (!isDoner)
               SizedBox(
                 width: Get.width,

@@ -137,8 +137,8 @@ class HomeScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Get.to(() => const FindDonor(),
-                          curve: Curves.bounceOut,
-                          duration: const Duration(seconds: 1));
+                         curve: Curves.bounceOut,
+                          duration: const Duration(milliseconds: 200));
                     },
                     child: Container(
                       height: Get.width * 0.3,
@@ -186,8 +186,8 @@ class HomeScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Get.to(() => const RegisterADonor(),
-                          curve: Curves.bounceOut,
-                          duration: const Duration(seconds: 1));
+                         curve: Curves.bounceOut,
+                          duration: const Duration(milliseconds: 200));
                     },
                     child: Container(
                       height: Get.width * 0.3,

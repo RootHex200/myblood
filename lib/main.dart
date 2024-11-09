@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myblood/auth/screens/login_screen.dart';
+import 'package:myblood/auth/log-in/login_screen.dart';
 
 void main() {
   runApp(const MyApp());

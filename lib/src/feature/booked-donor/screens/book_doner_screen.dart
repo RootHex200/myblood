@@ -10,6 +10,15 @@ class BookDonerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: scaffoldBackground,
+      appBar: AppBar(
+        backgroundColor: scaffoldBackground,
+        centerTitle: true,
+        title: const Text(
+          "Booking notifications",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: SafeArea(
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 29),

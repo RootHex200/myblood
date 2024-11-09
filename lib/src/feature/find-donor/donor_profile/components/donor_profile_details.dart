@@ -179,7 +179,7 @@ class DonorProfileDetails extends StatelessWidget {
                 if (whentoBook == "Book Now") {
                   Get.to(() => InstantBooking());
                 } else if (whentoBook == "Book Latter") {
-                  Get.to(() => BookingLatter());
+                  Get.to(() => const BookingLatter());
                 }
               },
               child: Container(

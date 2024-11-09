@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/common/widget/custome_text_field.dart';
 import 'package:myblood/src/core/utils/colors.dart';
@@ -257,7 +257,7 @@ class InstantBooking extends StatelessWidget {
                     width: Get.width * .7,
                     child: CustomeTextField(
                       controller: _controller5,
-                      inputType: TextInputType.number,
+                      inputType: TextInputType.phone,
                       hintText: "XXX-XXXXXX",
                       onChanged: (value) {
                         phoneNumber = value.toString();
@@ -299,8 +299,12 @@ class InstantBooking extends StatelessWidget {
                       cancel: TextButton(
                           style: const ButtonStyle(
                               backgroundColor:
-                                  WidgetStatePropertyAll(Colors.grey)),
-                          onPressed: () {},
+                                  WidgetStatePropertyAll(Colors.green)),
+                          onPressed: () async {
+                            String number = "+880$phoneNumber";
+                            FlutterPhoneDirectCaller.callNumber(number);
+                            Navigator.of(context).pop();
+                          },
                           child: const Text(
                             "Call donor",
                             style: TextStyle(color: Colors.white),

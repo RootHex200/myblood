@@ -12,8 +12,9 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final LoginSuccessController _controller = Get.put(LoginSuccessController());
   final LoginPageValues _loginPageValues = Get.put(LoginPageValues());
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  // final TextEditingController _emailController = TextEditingController();
+  // final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,13 +82,14 @@ class LoginScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 40,
                   ),
                   // User Name
                   CustomeTextField(
-                    controller: _emailController,
+                    // controller: _emailController,
                     inputType: TextInputType.emailAddress,
                     hintText: "Enter your email",
+                    errorText: _controller.errorMassage.value,
                     onChanged: (value) {
                       _loginPageValues.email.value = value;
                     },
@@ -99,11 +101,9 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.red,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+
                   CustomeTextField(
-                    controller: _passwordController,
+                    // controller: _passwordController,
                     inputType: TextInputType.visiblePassword,
                     hintText: "Enter your password",
                     onChanged: (value) {
@@ -118,21 +118,22 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 25,
+                    height: 30,
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (_loginPageValues.email.isNotEmpty &&
+                          _loginPageValues.email.contains("@") &&
                           _loginPageValues.password.isNotEmpty) {
                         _controller.loginChecker();
-                        if (_controller.loginSuccess.value) {
-                          Get.to(HomePage());
-                          _emailController.clear();
-                          _passwordController.clear();
+                        if (_controller.loginSuccess.value == true) {
+                          await Get.to(HomePage());
+                          // _emailController.clear();
+                          // _passwordController.clear();
                           _loginPageValues.email.value = "";
                           _loginPageValues.password.value = "";
                         }
-                      } else {}
+                      }
                     },
                     child: Container(
                       height: 50,
@@ -265,5 +266,10 @@ class LoginScreen extends StatelessWidget {
         ]),
       ),
     );
+  }
+// dispose controller
+  void dispose() {
+    _controller.dispose();
+    _loginPageValues.dispose();
   }
 }

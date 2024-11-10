@@ -13,11 +13,14 @@ class CustomeTextField extends StatelessWidget {
     this.maxLine,
     this.suffixIcon,
     this.textAlign = TextAlign.start,
-    this.inputFormatters, this.controller,
+    this.inputFormatters,
+    this.controller,
+    this.errorText,
   });
 
   final TextInputType inputType;
   final String hintText;
+  final String? errorText;
   final ValueChanged<String> onChanged;
   final ValueChanged<String> onSubmitted;
   final Icon? prefixIcon;
@@ -37,6 +40,9 @@ class CustomeTextField extends StatelessWidget {
       style: const TextStyle(color: Colors.red),
       decoration: InputDecoration(
           prefixIcon: prefixIcon,
+          errorText: errorText,
+          errorStyle: const TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red),
           suffixIcon: suffixIcon,
           fillColor: whiteColor,
           filled: true,

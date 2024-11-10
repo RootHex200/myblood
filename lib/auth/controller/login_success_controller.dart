@@ -12,11 +12,12 @@ class LoginSuccessController extends GetxController {
     isLoading.value = true;
     String email = _loginPageValues.email.value;
     String password = _loginPageValues.password.value;
-    String apiPath = "$api$getUser?email=$email&password=$password";
+    String apiPath = "$api$user?email=$email&password=$password";
     try {
       final response = await dio.get(apiPath);
       if (response.statusCode == 200) {
-        if (response.data != null) {
+        List successChecker = response.data;
+        if (successChecker.isNotEmpty) {
           loginSuccess.value = true;
         }
       } else {

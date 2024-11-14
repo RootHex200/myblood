@@ -4,6 +4,7 @@ import 'package:myblood/auth/controller/login_success_controller.dart';
 import 'package:myblood/auth/log-in/controllers/login_page_values.dart';
 import 'package:myblood/auth/screens/forgot_pass_screen.dart';
 import 'package:myblood/auth/screens/sign-up/screen/sign_up_screen.dart';
+import 'package:myblood/src/core/common/widget/custome_pass_field.dart';
 import 'package:myblood/src/core/common/widget/custome_text_field.dart';
 import 'package:myblood/src/core/utils/colors.dart';
 import 'package:myblood/src/feature/home/home_page.dart';
@@ -12,9 +13,6 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final LoginSuccessController _controller = Get.put(LoginSuccessController());
   final LoginPageValues _loginPageValues = Get.put(LoginPageValues());
-  // final TextEditingController _emailController = TextEditingController();
-  // final TextEditingController _passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,36 +100,52 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
 
-                  CustomeTextField(
-                    // controller: _passwordController,
-                    inputType: TextInputType.visiblePassword,
-                    hintText: "Enter your password",
-                    onChanged: (value) {
-                      _loginPageValues.password.value = value;
-                    },
-                    onSubmitted: (value) {
-                      _loginPageValues.password.value = value;
-                    },
-                    prefixIcon: const Icon(
-                      Icons.password,
-                      color: Colors.red,
+                  Obx(
+                    () => CustomePassField(
+                      obscureText: _loginPageValues.showPassword.value,
+                      inputType: TextInputType.visiblePassword,
+                      hintText: "Enter your password",
+                      prefixIcon: const Icon(
+                        Icons.password,
+                        color: Colors.red,
+                      ),
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          _loginPageValues.togglePassField();
+                        },
+                        child: _loginPageValues.showPassword.value
+                            ? const Icon(
+                                Icons.visibility_off,
+                                color: Colors.red,
+                              )
+                            : const Icon(
+                                Icons.visibility,
+                                color: Colors.red,
+                              ),
+                      ),
+                      onChanged: (value) {
+                        _loginPageValues.password.value = value;
+                      },
+                      onSubmitted: (value) {
+                        _loginPageValues.password.value = value;
+                      },
                     ),
                   ),
+
                   const SizedBox(
                     height: 30,
                   ),
                   GestureDetector(
-                    onTap: () async {
+                    onTap: () {
                       if (_loginPageValues.email.isNotEmpty &&
                           _loginPageValues.email.contains("@") &&
                           _loginPageValues.password.isNotEmpty) {
                         _controller.loginChecker();
                         if (_controller.loginSuccess.value == true) {
-                          await Get.to(HomePage());
-                          // _emailController.clear();
-                          // _passwordController.clear();
-                          _loginPageValues.email.value = "";
-                          _loginPageValues.password.value = "";
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) {
+                            return HomePage();
+                          }), (route) => false);
                         }
                       }
                     },
@@ -166,12 +180,30 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       TextButton(
                           onPressed: () {
-                            Get.to(
-                                () => ForgotPassScreen(
-                                      email: _loginPageValues.email.value,
-                                    ),
-                                curve: Curves.bounceOut,
-                                duration: const Duration(milliseconds: 200));
+                            if (_loginPageValues.email.isNotEmpty &&
+                                _loginPageValues.email.value.contains("@")) {
+                              Get.to(
+                                  () => ForgotPassScreen(
+                                        email: _loginPageValues.email.value,
+                                      ),
+                                  curve: Curves.bounceOut,
+                                  duration: const Duration(milliseconds: 200));
+                            } else {
+                              Get.defaultDialog(
+                                title: "Worning",
+                                titleStyle: const TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold),
+                                middleText: "Enter a valid Email",
+                                middleTextStyle: const TextStyle(
+                                  color: Colors.grey,
+                                ),
+                                onConfirm: () {
+                                  Navigator.of(context).pop();
+                                },
+                              );
+                            }
                           },
                           child: Text(
                             "Forgot Password?",
@@ -267,6 +299,7 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+
 // dispose controller
   void dispose() {
     _controller.dispose();

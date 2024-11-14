@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+// import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/common/widget/custome_text_field.dart';
 import 'package:myblood/src/core/utils/colors.dart';
@@ -302,7 +302,7 @@ class InstantBooking extends StatelessWidget {
                                   WidgetStatePropertyAll(Colors.green)),
                           onPressed: () async {
                             String number = "+880$phoneNumber";
-                            FlutterPhoneDirectCaller.callNumber(number);
+                            // FlutterPhoneDirectCaller.callNumber(number);
                             Navigator.of(context).pop();
                           },
                           child: const Text(

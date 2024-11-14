@@ -1,11 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myblood/auth/controller/pass_controller.dart';
+import 'package:myblood/auth/log-in/login_screen.dart';
 import 'package:myblood/auth/screens/sign-up/controller/drop_down_button_controller.dart';
 import 'package:myblood/auth/screens/sign-up/controller/registration_new_user_controller.dart';
+
 import 'package:myblood/auth/screens/sign-up/controller/sign_up_values.dart';
+import 'package:myblood/src/core/common/widget/custome_pass_field.dart';
 import 'package:myblood/src/core/common/widget/custome_text_field.dart';
 import 'package:myblood/src/core/utils/colors.dart';
 
@@ -16,6 +18,7 @@ class SignUpScreen extends StatelessWidget {
   final SignUpValues _pageValues = Get.put(SignUpValues());
   final RegistrationNewUserController _newUserController =
       Get.put(RegistrationNewUserController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,58 +71,60 @@ class SignUpScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Obx(
-                          () => Container(
-                            height: 200,
-                            width: 200,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors
-                                  .white, // replace 'whiteColor' with Colors.white if it's not defined
-                              image: _pageValues.image.value.isNotEmpty
-                                  ? DecorationImage(
-                                      image: FileImage(
-                                          File(_pageValues.image.value)),
-                                      fit: BoxFit.cover)
-                                  : null,
-                            ),
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: CircleAvatar(
+                        Container(
+                          height: 200,
+                          width: 200,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors
+                                .white, // replace 'whiteColor' with Colors.white if it's not defined
+                          ),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Obx(
+                                  () => CircleAvatar(
                                     radius: 90,
+                                    backgroundImage:
+                                        _pageValues.image.value.isNotEmpty
+                                            ? FileImage(
+                                                File(_pageValues.image.value))
+                                            : null,
                                     backgroundColor: Colors.grey.shade200,
-                                    child: const Icon(Icons.person,
-                                        size: 80, color: Colors.grey),
+                                    child: _pageValues.image.value.isEmpty
+                                        ? const Icon(Icons.person,
+                                            size: 80, color: Colors.grey)
+                                        : null,
                                   ),
                                 ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      _newUserController.getImage();
-                                    },
-                                    child: Container(
-                                      height: 50,
-                                      width: 50,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.grey,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Icon(
-                                        Icons.camera_alt,
-                                        color: Colors.white,
-                                        size: 24,
-                                      ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    _newUserController.getImage();
+                                  },
+                                  child: Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.grey,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.white,
+                                      size: 24,
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
+
                         const SizedBox(
                           height: 20,
                         ),
@@ -161,38 +166,28 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         // password field
                         Obx(
-                          () => TextField(
-                            style: const TextStyle(color: Colors.red),
+                          () => CustomePassField(
                             obscureText: _passController.obscureText.value,
-                            keyboardType: TextInputType.visiblePassword,
-                            decoration: InputDecoration(
-                                prefixIcon: const Icon(
-                                  Icons.password,
-                                  color: Colors.red,
-                                ),
-                                suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    _passController.changeState();
-                                  },
-                                  child: _passController.obscureText.value
-                                      ? const Icon(
-                                          Icons.visibility_off,
-                                          color: Colors.red,
-                                        )
-                                      : const Icon(
-                                          Icons.visibility,
-                                          color: Colors.red,
-                                        ),
-                                ),
-                                fillColor: whiteColor,
-                                filled: true,
-                                hintText: "Enter password",
-                                hintStyle: const TextStyle(
-                                    fontSize: 20, color: Colors.red),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide.none,
-                                )),
+                            inputType: TextInputType.visiblePassword,
+                            hintText: "Enter your password",
+                            prefixIcon: const Icon(
+                              Icons.password,
+                              color: Colors.red,
+                            ),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                _passController.changeState();
+                              },
+                              child: _passController.obscureText.value
+                                  ? const Icon(
+                                      Icons.visibility_off,
+                                      color: Colors.red,
+                                    )
+                                  : const Icon(
+                                      Icons.visibility,
+                                      color: Colors.red,
+                                    ),
+                            ),
                             onChanged: (value) {
                               _pageValues.password.value = value;
                             },
@@ -219,8 +214,8 @@ class SignUpScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 color: whiteColor,
                               ),
-                              child: Obx(
-                                () => DropdownButton(
+                              child: Obx(() {
+                                return DropdownButton(
                                   alignment: Alignment.centerRight,
                                   value: _dropdownController.selectedItem.value,
                                   style: const TextStyle(color: Colors.red),
@@ -237,11 +232,13 @@ class SignUpScreen extends StatelessWidget {
                                     if (value != null) {
                                       _dropdownController
                                           .updateSelectedItem(value);
-                                      _pageValues.bloodGroup.value = value;
+                                      _pageValues.bloodGroup.value =
+                                          _dropdownController
+                                              .selectedItem.value;
                                     }
                                   },
-                                ),
-                              ),
+                                );
+                              }),
                             )
                           ],
                         ),
@@ -312,14 +309,15 @@ class SignUpScreen extends StatelessWidget {
                           onTap: () {
                             _newUserController.isLoading.value == true;
                             if (submitValidator(
-                              _pageValues.fullName.value,
-                              _pageValues.email.value,
-                              _pageValues.password.value,
-                              _pageValues.bloodGroup.value,
-                              _pageValues.phoneNumber.value,
-                              _pageValues.currentAddress.value,
-                              _pageValues.permanentAddress.value,
-                            )) {
+                                  _pageValues.fullName.value,
+                                  _pageValues.email.value,
+                                  _pageValues.password.value,
+                                  _pageValues.bloodGroup.value,
+                                  _pageValues.phoneNumber.value,
+                                  _pageValues.currentAddress.value,
+                                  _pageValues.permanentAddress.value,
+                                ) 
+                               ) {
                               _newUserController.registerUser();
                               // for showing success
                               Get.defaultDialog(
@@ -338,6 +336,12 @@ class SignUpScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ));
+                              Future.delayed(const Duration(seconds: 1), () {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(builder: (context) {
+                                  return LoginScreen();
+                                }), (route) => false);
+                              });
                             } else {
                               // for showing error
                               Get.defaultDialog(

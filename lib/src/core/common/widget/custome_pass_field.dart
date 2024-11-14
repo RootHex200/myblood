@@ -2,31 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myblood/src/core/utils/colors.dart';
 
-class CustomeTextField extends StatelessWidget {
-  const CustomeTextField({
+class CustomePassField extends StatelessWidget {
+  const CustomePassField({
     super.key,
     required this.inputType,
     required this.hintText,
     required this.onChanged,
     required this.onSubmitted,
     this.prefixIcon,
-    this.maxLine,
     this.suffixIcon,
     this.textAlign = TextAlign.start,
     this.inputFormatters,
     this.controller,
     this.errorText,
-    this.obsecureText = false,
+    this.obscureText = false,
   });
 
   final TextInputType inputType;
   final String hintText;
   final String? errorText;
-  final bool obsecureText;
+  final bool obscureText;
   final ValueChanged<String> onChanged;
   final ValueChanged<String> onSubmitted;
   final Icon? prefixIcon;
-  final int? maxLine;
   final Widget? suffixIcon;
   final TextAlign textAlign;
   final TextEditingController? controller;
@@ -37,8 +35,7 @@ class CustomeTextField extends StatelessWidget {
     return TextField(
       textAlign: textAlign,
       keyboardType: inputType,
-      maxLines: maxLine,
-      obscureText: obsecureText,
+      obscureText: obscureText,
       inputFormatters: inputFormatters,
       style: const TextStyle(color: Colors.red),
       decoration: InputDecoration(

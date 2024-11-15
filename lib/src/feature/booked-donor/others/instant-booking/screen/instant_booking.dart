@@ -4,20 +4,25 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:myblood/src/core/common/widget/custome_text_field.dart';
 import 'package:myblood/src/core/utils/colors.dart';
-import 'package:myblood/src/feature/booked-donor/others/instant-booking/booking_values.dart';
+import 'package:myblood/src/feature/booked-donor/others/instant-booking/api/post_blood_request.dart';
+import 'package:myblood/src/feature/booked-donor/others/instant-booking/controller/booking_values_controller.dart';
 import 'package:myblood/src/feature/booked-donor/others/instant-booking/controller/select_time_controller.dart';
 
 class InstantBooking extends StatelessWidget {
-  InstantBooking({super.key});
+  InstantBooking({super.key, required this.email, required this.bloodGroup});
+  final String email;
+  final String bloodGroup;
   final SelectTimeController _controller = Get.put(SelectTimeController());
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
   final TextEditingController _controller4 = TextEditingController();
   final TextEditingController _controller5 = TextEditingController();
+  final BookingValuesController valuesController =
+      Get.put(BookingValuesController());
+  final PostBloodRequest postRequest = Get.put(PostBloodRequest());
   @override
   Widget build(BuildContext context) {
-    String phoneNumber = "";
     return Scaffold(
       backgroundColor: scaffoldBackground,
       appBar: AppBar(
@@ -61,18 +66,12 @@ class InstantBooking extends StatelessWidget {
                 inputType: TextInputType.text,
                 hintText: "রোগীর সমস্যা লিখুন",
                 onChanged: (value) {
-                  problemDescription = value.toString();
+                  valuesController.problemDescription.value = value;
                 },
                 onSubmitted: (value) {
-                  problemDescription = value.toString();
+                  valuesController.problemDescription.value = value;
                 },
                 maxLine: 2,
-                suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.save,
-                      color: Colors.red,
-                    )),
               ),
               const SizedBox(
                 height: 20,
@@ -94,10 +93,10 @@ class InstantBooking extends StatelessWidget {
                       inputType: TextInputType.number,
                       hintText: "",
                       onChanged: (value) {
-                        bloodQuantity = value.toString();
+                        valuesController.bloodQuantity.value = value;
                       },
                       onSubmitted: (value) {
-                        bloodQuantity = value.toString();
+                        valuesController.bloodQuantity.value = value;
                       },
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -136,10 +135,10 @@ class InstantBooking extends StatelessWidget {
                   inputType: TextInputType.number,
                   hintText: "",
                   onChanged: (value) {
-                    himoglobinPoint = value.toString();
+                    valuesController.himoglobinPoint.value = value;
                   },
                   onSubmitted: (value) {
-                    himoglobinPoint = value.toString();
+                    valuesController.himoglobinPoint.value = value;
                   },
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(
@@ -164,10 +163,10 @@ class InstantBooking extends StatelessWidget {
                 inputType: TextInputType.text,
                 hintText: "রক্তদানের স্থান লিখুন",
                 onChanged: (value) {
-                  whereToDontae = value.toString();
+                  valuesController.whereToDontae.value = value;
                 },
                 onSubmitted: (value) {
-                  whereToDontae = value.toString();
+                  valuesController.whereToDontae.value = value;
                 },
                 maxLine: 2,
                 suffixIcon: IconButton(
@@ -260,10 +259,10 @@ class InstantBooking extends StatelessWidget {
                       inputType: TextInputType.phone,
                       hintText: "XXX-XXXXXX",
                       onChanged: (value) {
-                        phoneNumber = value.toString();
+                        valuesController.phone.value = value;
                       },
                       onSubmitted: (value) {
-                        phoneNumber = value.toString();
+                        valuesController.phone.value = value;
                       },
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(10),
@@ -277,18 +276,25 @@ class InstantBooking extends StatelessWidget {
                 height: 20,
               ),
               GestureDetector(
-                onTap: () {
-                  if (problemDescription.isNotEmpty &&
-                      bloodQuantity.isNotEmpty &&
-                      himoglobinPoint.isNotEmpty &&
-                      whereToDontae.isNotEmpty &&
-                      phoneNumber.isNotEmpty) {
-                    // _controller1.clear();
-                    // _controller2.clear();
-                    // _controller3.clear();
-                    // _controller4.clear();
-                    // _controller5.clear();
-                    //
+                onTap: () async {
+                  if (validationChecker(
+                    valuesController.problemDescription.value,
+                    valuesController.bloodQuantity.value,
+                    valuesController.himoglobinPoint.value,
+                    valuesController.whereToDontae.value,
+                    _controller.selectedTime.value.toString(),
+                    valuesController.phone.value,
+                  )) {
+                    await postRequest.postBloodRequest(
+                        email,
+                        valuesController.problemDescription.value,
+                        bloodGroup,
+                        valuesController.bloodQuantity.value,
+                        valuesController.himoglobinPoint.value,
+                        valuesController.whereToDontae.value,
+                        _controller.selectedTime.value.toString(),
+                        valuesController.phone.value);
+
                     Get.defaultDialog(
                       title: "Success",
                       middleText:
@@ -301,7 +307,7 @@ class InstantBooking extends StatelessWidget {
                               backgroundColor:
                                   WidgetStatePropertyAll(Colors.green)),
                           onPressed: () async {
-                            String number = "+880$phoneNumber";
+                            // String number = "+880$phoneNumber";
                             // FlutterPhoneDirectCaller.callNumber(number);
                             Navigator.of(context).pop();
                           },
@@ -335,5 +341,26 @@ class InstantBooking extends StatelessWidget {
         ),
       )),
     );
+  }
+}
+
+bool validationChecker(
+  String problem,
+  String bloodQuantity,
+  String himoglobin,
+  String wheretoDonate,
+  String time,
+  String phone,
+) {
+  if (problem.isNotEmpty &&
+      bloodQuantity.isNotEmpty &&
+      himoglobin.isNotEmpty &&
+      wheretoDonate.isNotEmpty &&
+      time.isNotEmpty &&
+      phone.isNotEmpty &&
+      phone.length <= 10) {
+    return true;
+  } else {
+    return false;
   }
 }

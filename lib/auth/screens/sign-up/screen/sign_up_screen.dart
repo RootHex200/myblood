@@ -77,7 +77,7 @@ class SignUpScreen extends StatelessWidget {
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors
-                                .white, // replace 'whiteColor' with Colors.white if it's not defined
+                                .white,
                           ),
                           child: Stack(
                             children: [

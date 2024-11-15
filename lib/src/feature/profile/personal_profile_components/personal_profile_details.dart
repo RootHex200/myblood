@@ -69,7 +69,7 @@ class PersonalProfileDetails extends StatelessWidget {
               children: [
                 const Icon(Icons.phone_android),
                 SelectableText(
-                  phone,
+                  "+88 0$phone",
                   style: const TextStyle(
                       fontSize: 18, overflow: TextOverflow.ellipsis),
                 ),

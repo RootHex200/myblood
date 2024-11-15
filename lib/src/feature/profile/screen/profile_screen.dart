@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myblood/data/user_detail_controller.dart';
+
 import 'package:myblood/src/core/utils/colors.dart';
 import 'package:myblood/src/feature/profile/personal_profile_components/personal_profile_details.dart';
 import 'package:myblood/src/feature/profile/personal_profile_components/profile_heder.dart';
@@ -8,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
   final height = Get.height;
   final width = Get.width;
-
+  final UserDetailController userDetail = Get.find<UserDetailController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +28,18 @@ class ProfileScreen extends StatelessWidget {
                     height: height * 0.3,
                     width: width,
                     color: const Color.fromRGBO(120, 144, 156, 1),
-                    child: const Padding(
-                        padding: EdgeInsets.all(12),
+                    child: Padding(
+                        padding: const EdgeInsets.all(12),
                         child: ProfileHeder(
-                          name: "Md. Nazmul Hasan",
-                          bloodGroup: "A+",
+                          name: userDetail.userData.value!.userName,
+                          bloodGroup: userDetail.userData.value!.bloodGroup,
                         )),
                   ),
-                  const Expanded(
+                  Expanded(
                       child: PersonalProfileDetails(
-                    address: "Thakurpara, Kandirpar",
-                    email: "mh3214002@gmail.com",
-                    phone: "01889161149",
+                    address: userDetail.userData.value!.currentAddress,
+                    email: userDetail.userData.value!.email,
+                    phone: userDetail.userData.value!.phone,
                   ))
                 ],
               ),
@@ -54,9 +58,11 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: const CircleAvatar(
+                  child: CircleAvatar(
                     backgroundColor: Colors.white,
-                    backgroundImage: AssetImage("assets/images/blood.png"),
+                    backgroundImage: userDetail.userData.value!.image.isEmpty
+                        ? const AssetImage("assets/images/blood.png")
+                        : FileImage(File(userDetail.userData.value!.image)),
                     radius: 80,
                   ),
                 ),

@@ -177,7 +177,7 @@ class DonorProfileDetails extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 if (whentoBook == "Book Now") {
-                  Get.to(() => InstantBooking());
+                  Get.to(() => InstantBooking(email: email, bloodGroup: bloodGroup,));
                 } else if (whentoBook == "Book Latter") {
                   Get.to(() => const BookingLatter());
                 }

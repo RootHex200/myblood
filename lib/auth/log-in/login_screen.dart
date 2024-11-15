@@ -136,11 +136,11 @@ class LoginScreen extends StatelessWidget {
                     height: 30,
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       if (_loginPageValues.email.isNotEmpty &&
                           _loginPageValues.email.contains("@") &&
                           _loginPageValues.password.isNotEmpty) {
-                        _controller.loginChecker();
+                        await _controller.loginChecker();
                         if (_controller.loginSuccess.value == true) {
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) {

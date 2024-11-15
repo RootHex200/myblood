@@ -14,34 +14,46 @@ Welcome to **My Blood** — an app designed to connect people in urgent need of 
 - **Direct Call to Donors**: Use the built-in direct call feature to connect with a donor instantly during emergencies.
 - **Notifications**: Get real-time notifications for blood requests and bookings.
 
-
 ## 📲 Screenshots
 
 Here are some screenshots of the *My Blood* app to give you an overview of its UI and functionality.
 
+<div align="center">
+
 ### Login Screen
-![Login Screen](assets/overview/log-in.jpeg)
+<img src="assets/overview/log-in.jpeg" alt="Login Screen" width="250"/>
+<p>Login Screen - Sign in to make a difference</p>
 
 ### Home Screen
-![Home Screen](assets/overview/home-screen.jpeg)
+<img src="assets/overview/home-screen.jpeg" alt="Home Screen" width="250"/>
+<p>Home Screen - Easily access donor options</p>
 
 ### Profile Screen
-![Profile Screen](assets/overview/personal-profile.jpeg)
+<img src="assets/overview/personal-profile.jpeg" alt="Profile Screen" width="250"/>
+<p>Profile Screen - View your personal information and achievements</p>
 
 ### Donor Registration Screen
-![Donor Registration Screen](assets/overview/donor-regi.jpeg)
+<img src="assets/overview/donor-regi.jpeg" alt="Donor Registration Screen" width="250"/>
+<p>Donor Registration - Become a donor with a verified email</p>
 
 ### Find Donor Screen
-![Donor Registration Screen](assets/overview/find-donor.jpeg)
+<img src="assets/overview/find-donor.jpeg" alt="Find Donor Screen" width="250"/>
+<p>Find Donor - Quickly locate blood donors by blood group</p>
 
 ### Donor Profile Screen
-![Donor Registration Screen](assets/overview/donor-profile.jpeg)
+<img src="assets/overview/donor-profile.jpeg" alt="Donor Profile Screen" width="250"/>
+<p>Donor Profile - View details of available donors</p>
 
 ### Donor Request Screen
-![Donor Registration Screen](assets/overview/donor-request.jpeg)
+<img src="assets/overview/donor-request.jpeg" alt="Donor Request Screen" width="250"/>
+<p>Donor Request - Send instant blood requests</p>
 
-### Notificaton Screen
-![Donor Registration Screen](assets/overview/booking-notificatons.jpeg)
+### Notification Screen
+<img src="assets/overview/booking-notificatons.jpeg" alt="Notification Screen" width="250"/>
+<p>Notification - Stay updated on booking notifications</p>
+
+</div>
+
 
 ## 🔧 Technology Stack
 
